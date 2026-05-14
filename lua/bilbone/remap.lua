@@ -108,3 +108,6 @@ if gitsigns_ok then
     })
 end
 
+init_options = {
+    storagePath = vim.fn.stdpath('data') .. '/kotlin-ls'
+}
