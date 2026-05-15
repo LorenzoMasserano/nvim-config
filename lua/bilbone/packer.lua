@@ -1,5 +1,5 @@
 -- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+vim.cmd [[packadd packer.nvim]] 
 
 -- Impostazioni colore e terminale
 vim.opt.termguicolors = true
@@ -18,7 +18,6 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp'
   
   -- The Snippet Engine
-  use 'L3MON4D3/LuaSnip'
   use 'saadparwaiz1/cmp_luasnip'
 
   --Telescope
@@ -81,9 +80,7 @@ return require('packer').startup(function(use)
 			vim.cmd.colorscheme("catppuccin")
 		end,
 	}
-	use 'hrsh7th/nvim-cmp'          -- nvim-cmp
 	use 'L3MON4D3/LuaSnip'          -- LuaSnip
-	use 'saadparwaiz1/cmp_luasnip'  -- Connettore tra nvim-cmp e LuaSnip
 	use 'rafamadriz/friendly-snippets' -- I modelli di codice (Snippet) per Rust, ecc.
 
 	require('bilbone.snip')

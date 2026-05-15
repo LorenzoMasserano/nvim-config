@@ -26,9 +26,6 @@ vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 -- Jump to the next error in the file
 vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 
--- Optional: Make sure your leader key is the Spacebar (if you haven't already)
-vim.g.mapleader = " "
-
 -- Trigger the Code Action menu (The Neovim equivalent of Alt+Enter)
 vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
@@ -36,6 +33,7 @@ vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 vim.keymap.set('n', '<leader>f', function()
     vim.lsp.buf.format { async = true }
 end)
+
 
 -- Telescope section
 local telescope_ok, builtin = pcall(require, "telescope.builtin")
@@ -47,6 +45,7 @@ else
     print("Telescope not found! Run :PackerSync")
 end
 
+
 -- Tree section
 local tree_ok, nvim_tree = pcall(require, "nvim-tree")
 if tree_ok then
@@ -56,7 +55,7 @@ if tree_ok then
 
     nvim_tree.setup({
         view = {
-            width = 30,
+            width = 50, -- Kept your preferred wider layout (50)
             side = "left",
         },
         renderer = {
@@ -76,31 +75,8 @@ else
     print("Nvim-Tree not found! Run :PackerSync")
 end
 
--- Recommended settings from nvim-tree documentation
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 
-nvim_tree.setup({
-  view = {
-    width = 50,
-    side = "left",
-  },
-  renderer = {
-    icons = {
-      show = {
-        file = true,
-        folder = true,
-        folder_arrow = true,
-        git = true,
-      },
-    },
-  },
-})
-
--- Shortcut to toggle the sidebar: Space + e
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
-
---Gitsigns
+-- Gitsigns
 local gitsigns_ok, gitsigns = pcall(require, "gitsigns")
 if gitsigns_ok then
     gitsigns.setup({
@@ -108,6 +84,15 @@ if gitsigns_ok then
     })
 end
 
-init_options = {
-    storagePath = vim.fn.stdpath('data') .. '/kotlin-ls'
-}
+
+-- Kotlin LSP Setup
+vim.lsp.config('kotlin_language_server', {
+    capabilities = capabilities,
+    init_options = {
+        storagePath = vim.fn.stdpath('data') .. '/kotlin-ls'
+    }
+})
+
+vim.lsp.enable('kotlin_language_server')
+
+vim.keymap.set('n', '<leader><leader>', '<cmd>wincmd w<CR>', { desc = 'Cicle between windows' })
